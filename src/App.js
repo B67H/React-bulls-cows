@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>숫자 야구 게임</h1>
+      <header className="header">----</header>
+      <section>
+        <input />
+        <button>맞춰보기F</button>
+      </section>
+      <h2>기록</h2>
+      <ol>
+        <li>1234</li>
+        <li>4567</li>
+        <li>7896</li>
+      </ol>
     </div>
   );
 }
