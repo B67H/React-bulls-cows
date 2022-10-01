@@ -3,9 +3,10 @@ import "./App.css";
 import { generateRandomNum } from "./random";
 
 function App() {
-  const [randomNum] = useState(generateRandomNum());
+  const [randomNum, setRandomNum] = useState(generateRandomNum());
   const [answer, setAnswer] = useState("");
   const [logs, setLogs] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     console.log(randomNum);
@@ -41,23 +42,35 @@ function App() {
       }
     );
 
-    if(strike === 4) {
-      alert('축하합니다. 정답입니다!')
-      setLogs([...logs, `${answer} (정답!)`]);
-
-      return
+    if (strike === 4) {
+      alert("축하합니다. 정답입니다!");
+      setLogs([...logs, "정답!"]);
+      setIsSuccess(true);
+      return;
     }
 
     setLogs([...logs, `${answer} (strike : ${strike}, ball : ${ball})`]);
   };
 
+  const handleRetry = () => {
+    setRandomNum(generateRandomNum());
+    setAnswer("");
+    setLogs([]);
+    setIsSuccess(false);
+  };
   return (
     <div className="App">
       <h1>숫자 야구 게임</h1>
-      <header className="header">????</header>
+      <header className="header">
+        {isSuccess ? `정답 : ${answer}` : "????"}
+      </header>
       <section>
-        <input type="text" value={answer} onChange={handleAnswerChanged} />
-        <button onClick={handleSubmit}>맞춰보기</button>
+        <input type="text" value={answer} onChange={handleAnswerChanged} disabled={isSuccess}/>
+        {isSuccess ? (
+          <button onClick={handleRetry}>다시하기</button>
+        ) : (
+          <button onClick={handleSubmit}>맞춰보기</button>
+        )}
       </section>
       <h2>기록</h2>
       <ol>
