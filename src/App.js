@@ -19,6 +19,28 @@ function App() {
   const handleSubmit = () => {
     const answers = answer.split("").map((item) => Number(item));
 
+    if (answers.some((number) => isNaN(number))) {
+      alert("숫자만 입력해주세요");
+      setAnswer("")
+      return;
+    }
+
+    if (answers.length !== 4) {
+      alert("네자리 숫자만 입력해주세요");
+      setAnswer("")
+      return;
+    }
+
+    const isDuplicated = answers.some((number) => {
+      return answers.indexOf(number) !== answers.lastIndexOf(number);
+    });
+
+    if (isDuplicated) {
+      alert("입력값에 중복이 있습니다");
+      setAnswer("")
+      return;
+    }
+
     const { strike, ball } = randomNum.reduce(
       (prev, cur, index) => {
         if (answers[index] === cur) {
@@ -65,7 +87,12 @@ function App() {
         {isSuccess ? `정답 : ${answer}` : "????"}
       </header>
       <section>
-        <input type="text" value={answer} onChange={handleAnswerChanged} disabled={isSuccess}/>
+        <input
+          type="text"
+          value={answer}
+          onChange={handleAnswerChanged}
+          disabled={isSuccess}
+        />
         {isSuccess ? (
           <button onClick={handleRetry}>다시하기</button>
         ) : (
