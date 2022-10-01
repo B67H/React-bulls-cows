@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { generateRandomNum } from "./random";
+import { Logs } from './Logs';
 
 function App() {
   const [randomNum, setRandomNum] = useState(generateRandomNum());
@@ -99,12 +100,7 @@ function App() {
           <button onClick={handleSubmit}>맞춰보기</button>
         )}
       </section>
-      <h2>기록</h2>
-      <ol>
-        {logs.map((log, index) => {
-          return <li key={`${log}_${index}`}>{log}</li>;
-        })}
-      </ol>
+      <Logs logs={logs}/>
     </div>
   );
 }
